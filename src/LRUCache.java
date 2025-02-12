@@ -83,7 +83,34 @@ public class LRUCache {
         cache.put(key, newNode); // Add the node to the HashMap
         addToFront(newNode); // Add the node to the front of the list
     }
+
 }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("[Capacity=%d, ", capacity));
+        
+        if (cache.isEmpty()) {
+            sb.append("Empty]");
+            return sb.toString();
+        }
+
+        sb.append("MRU -> ");
+        
+        // Start from head.next (first real node) and traverse until tail
+        Node current = head.next;
+        while (current != tail) {
+            sb.append(String.format("(%d:%d)", current.key, current.value));
+            if (current.next != tail) {
+                sb.append(" -> ");
+            }
+            current = current.next;
+        }
+        
+        sb.append(" -> LRU]");
+        return sb.toString();
+    }
 }
 
 
